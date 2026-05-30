@@ -1,0 +1,3 @@
+*.o
+glfwfuncs.cl
+glfwconsts.cl
