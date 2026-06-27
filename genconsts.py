@@ -7,7 +7,6 @@ def adaptName(name):
     return name
 
 with open(sys.argv[2], "w") as out:
-    out.write("in glfw:\n")
     with open(sys.argv[1], "r") as f:
         for line in f.readlines():
             line = line.lstrip()

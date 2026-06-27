@@ -1,6 +1,8 @@
+use std/maybe, std/rt
+
 in glfw:
-    alias Glproc: void(void)
-    alias Vkproc: void(void)
+    alias Glproc: void*
+    alias Vkproc: void*
 
     type Monitor
     type Window

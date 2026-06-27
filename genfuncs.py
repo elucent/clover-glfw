@@ -3,7 +3,7 @@ import re
 
 replacements = {
     '(void)': '()',
-    'void*': 'i8*',
+    'void*': 'void*',
     'const unsigned char': 'u8',
     'const char': 'i8',
     'char ': 'i8 ',
@@ -73,9 +73,27 @@ def adaptName(name):
         return name
     return name
 
+special = {
+    'glfwGetKeyName',
+    'glfwGetJoystickName',
+    'glfwGetJoystickGUID',
+    'glfwUpdateGamepadMappings',
+    'glfwGetGamepadName',
+    'glfwSetClipboardString',
+    'glfwGetClipboardString',
+    'glfwExtensionSupported',
+    'glfwGetProcAddress',
+    'glfwGetRequiredInstanceExtensions',
+    'glfwGetVersionString',
+    'glfwGetError',
+    'glfwGetMonitorName',
+    'glfwWindowHintString',
+    'glfwCreateWindow',
+    'glfwGetWindowTitle',
+    'glfwSetWindowTitle'
+}
+
 with open(sys.argv[2], "w") as out:
-    out.write("use glfwtypes\n")
-    out.write("in glfw:\n")
     natives = ''
     nicenames = ''
     with open(sys.argv[1], "r") as f:
@@ -113,7 +131,8 @@ with open(sys.argv[2], "w") as out:
                     niceDef = niceDef.replace(k, v, -1)
 
                 natives += nativeDef
-                nicenames += niceDef
+                if name not in special:
+                    nicenames += niceDef
     out.write('    in native:\n')
     out.write(natives)
     out.write(nicenames)
